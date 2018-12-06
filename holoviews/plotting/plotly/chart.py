@@ -149,8 +149,9 @@ class BarPlot(ElementPlot):
         x_dim = element.get_dimension(self.group_index)
         vdim = element.get_dimension(element.ndims)
         if cat_dim and stack_dim:
-            self.warning("Plotly does not support stacking and categories "
-                         "on a bar chart at the same time.")
+            self.param.warning(
+                "Plotly does not support stacking and categories on "
+                "a bar chart at the same time.")
 
         if element.ndims == 1:
             bars = [dict(type='bar',

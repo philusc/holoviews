@@ -101,8 +101,8 @@ class ElementPlot(PlotlyPlot, GenericElementPlot):
         if element is None:
             return self.handles['fig']
         plot_opts = self.lookup_options(element, 'plot').options
-        self.set_param(**{k: v for k, v in plot_opts.items()
-                          if k in self.params()})
+        self.param.set_param(**{k: v for k, v in plot_opts.items()
+                                if k in self.params()})
         self.style = self.lookup_options(element, 'style')
 
         ranges = self.compute_ranges(self.hmap, key, ranges)

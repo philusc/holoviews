@@ -239,8 +239,8 @@ class MultiDimensionalMapping(Dimensioned):
         if self._deep_indexable and isinstance(data, Dimensioned) and indices:
             return data[indices]
         elif len(indices) > 0:
-            self.warning('Cannot index into data element, extra data'
-                         ' indices ignored.')
+            self.param.warning('Cannot index into data element, extra data'
+                               ' indices ignored.')
         return data
 
 
@@ -289,7 +289,7 @@ class MultiDimensionalMapping(Dimensioned):
             groups. If dynamic=True returns a DynamicMap instead.
         """
         if self.ndims == 1:
-            self.warning('Cannot split Map with only one dimension.')
+            self.param.warning('Cannot split Map with only one dimension.')
             return self
         elif not isinstance(dimensions, list):
             dimensions = [dimensions]
@@ -588,9 +588,9 @@ class MultiDimensionalMapping(Dimensioned):
         Elements to a Table.
         """
         if config.future_deprecations:
-            self.warning("The table method is deprecated and should no "
-                         "longer be used. If using a HoloMap use "
-                         "HoloMap.collapse() instead to return a Dataset.")
+            self.param.warning("The table method is deprecated and should no "
+                               "longer be used. If using a HoloMap use "
+                               "HoloMap.collapse() instead to return a Dataset.")
 
         from .data.interface import Interface
         from ..element.tabular import Table
@@ -607,10 +607,10 @@ class MultiDimensionalMapping(Dimensioned):
         supported by specific subclasses such as UniformNdMapping
         types.
         """
-        self.warning("The MultiDimensionalMapping.dframe method is "
-                     "deprecated and should no longer be used. "
-                     "Use a more specific subclass which does support "
-                     "the dframe method instead, e.g. a HoloMap.")
+        self.param.warning("The MultiDimensionalMapping.dframe method is "
+                           "deprecated and should no longer be used. "
+                           "Use a more specific subclass which does support "
+                           "the dframe method instead, e.g. a HoloMap.")
         try:
             import pandas
         except ImportError:

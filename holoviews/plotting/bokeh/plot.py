@@ -401,8 +401,9 @@ class BokehPlot(DimensionedPlot):
                 source_cols[id(new_source)] = [c for c in new_source.data]
         for plot in plots:
             if plot.hooks and plot.finalize_hooks:
-                self.warning("Supply either hooks or finalize_hooks not both; "
-                             "using hooks and ignoring finalize_hooks.")
+                self.param.warning(
+                    "Supply either hooks or finalize_hooks not both; "
+                    "using hooks and ignoring finalize_hooks.")
             hooks = plot.hooks or plot.finalize_hooks
             for hook in hooks:
                 hook(plot, plot.current_frame)
@@ -586,8 +587,9 @@ class GridPlot(CompositePlot, GenericCompositePlot):
             plotting_class = Store.registry[self.renderer.backend].get(vtype, None)
             if plotting_class is None:
                 if view is not None:
-                    self.warning("Bokeh plotting class for %s type not found, "
-                                 "object will not be rendered." % vtype.__name__)
+                    self.param.warning(
+                        "Bokeh plotting class for %s type not found, "
+                        "object will not be rendered." % vtype.__name__)
             else:
                 subplot = plotting_class(view, dimensions=self.dimensions,
                                          show_title=False, subplot=True,
@@ -765,7 +767,7 @@ class LayoutPlot(CompositePlot, GenericLayoutPlot):
             if empty or view.main is None:
                 continue
             elif not view.traverse(lambda x: x, [Element]):
-                self.warning('%s is empty, skipping subplot.' % view.main)
+                self.param.warning('%s is empty, skipping subplot.' % view.main)
                 continue
             else:
                 layout_count += 1
@@ -834,8 +836,9 @@ class LayoutPlot(CompositePlot, GenericLayoutPlot):
                 subplots[pos] = None
                 continue
             elif plot_type is None:
-                self.warning("Bokeh plotting class for %s type not found, object will "
-                             "not be rendered." % vtype.__name__)
+                self.param.warning(
+                    "Bokeh plotting class for %s type not found, object "
+                    " will not be rendered." % vtype.__name__)
                 continue
             num = num if len(self.coords) > 1 else 0
             subplot = plot_type(element, keys=self.keys,
